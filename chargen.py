@@ -66,7 +66,7 @@ race_list = {
                             "age" : {"fighter":"3d4+20","druid":"3d4+40","thief":"2d4+40"}
                         },
         "half-orc" :    {
-                            "ability_adjustments": {"STR":1,"CON":1},"CHA":-2, 
+                            "ability_adjustments": {"STR":1,"CON":1,"CHA":-2},
                             "classes" : ["assassin", "cleric", "fighter", "thief", "cleric/fighter", "cleric/thief", "cleric/assassin", "fighter/thief", "fighter/assassin"],
                             "languages" : ["common","orcish","alignment tongue"],
                             "min ability scores" : {"STR":6, "DEX":3, "CON":13, "INT":3, "WIS":3, "CHA":3},
@@ -854,7 +854,7 @@ def display_player_info(pi):
     print(f"\ngold: {pi['gold']}")
 
 def main():
-    print("Welcome to verderog's OSRIC 3.0 chargen!")
+    print("Welcome to dapt's OSRIC 3.0 chargen!")
     
     while True:
         char_count = input("# of characters to generate>")
