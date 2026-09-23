@@ -11,7 +11,6 @@ import utils
 
 debug_level = 2
 
-ability_list = {"STR":0, "DEX":0, "CON":0, "INT":0, "WIS":0, "CHA":0}
 
 
 
@@ -27,95 +26,25 @@ ILLUSIONIST_SPELLS = [
         ["audible glamour","change self","colour spray","dancing lights","darkness","detect illusion","detect invisibility","gaze reflection","hypnotism","light","phantasmal force","wall of fog"]
     ]
 
-
-
-def generate_ability_scores(method):
-    char_abilities = ability_list.copy()
-    
-    if method == 0:
-        for ability in char_abilities:
-            while True:
-                new_score=input(f"{ability}: >")
-                if utils.is_integer(new_score):
-                    new_score = int(new_score)
-                    if new_score >= 3 and new_score <= 18:
-                        char_abilities[ability] = new_score
-                        break
-                    else:
-                        print("*** INVALID VALUE, enter 3-18 ***")
-        return char_abilities
-    elif method == 1:
-        for ability in char_abilities:
-            die_list=[]
-            for _ in range(0,3):
-                die = random.randint(1,6)
-                die_list.append(die)
-            char_abilities[ability] = sum(die_list)
-        return char_abilities
-    elif method == 2:
-        rolls=[]
-        for _ in range(6):
-            roll = 0
-            for _ in range(3):
-                roll += random.randint(1,6)
-            rolls.append(roll)
-
-        for ability in char_abilities:
-            print(rolls)
-            print("Assign rolls to ability:")
-            while True:
-                selected_score = input(f"{ability}: >")
-                if utils.is_integer(selected_score):
-                    selected_score = int(selected_score)
-                    if selected_score in rolls:
-                        char_abilities[ability] = selected_score
-                        rolls.remove(selected_score)
-                        break
-                    else:
-                        print("*** INVALID VALUE, enter a value from the available rolls")
-                        print(rolls)
-        return char_abilities
-
-    elif method == 3:
-        for ability in ability_list:
-            die_list=[]
-            for _ in range(0,4):
-                die = random.randint(1,6)
-                die_list.append(die)
-                
-            min_val = min(die_list)
-            die_list.remove(min_val)
-            char_abilities[ability] = sum(die_list)
-        return char_abilities
-
-    elif method ==  4:
-        rolls=[]
-        for _ in range(6):
-            die_list = []
-            for _ in range(4):
-                die = random.randint(1,6)
-                die_list.append(die)
+def generate_stats(dice_per_roll):
+    rolls = []
+    for _ in range(6):
+        die_list = []
+        for _ in range(dice_per_roll):
+            die = random.randint(1,6)
+            die_list.append(die)
+        while len(die_list) > 3 :
             die_list.remove(min(die_list))
-            rolls.append(sum(die_list))
+        rolls.append(sum(die_list))
+    return rolls
 
-        for ability in char_abilities:
-            print(rolls)
-            print("Assign rolls to ability:")
-            while True:
-                selected_score = input(f"{ability}: >")
-                if utils.is_integer(selected_score):
-                    selected_score = int(selected_score)
-                    if selected_score in rolls:
-                        char_abilities[ability] = selected_score
-                        rolls.remove(selected_score)
-                        break
-                    else:
-                        print("*** INVALID VALUE, enter a value from the available rolls")
-                        print(rolls)
-        return char_abilities
-
-    else:
-        raise Exception("Not yet implemented")
+# to be used on later iterations
+@staticmethod
+def assign_ability_scores(rolls_in_order):
+    char_abilities = data.ability_list.copy()
+    for ability in char_abilities:
+        char_abilities[ability] = rolls_in_order
+    return char_abilities
         
 def get_available_race_and_classes(abilities,desired_race,desired_class):
     available_race_and_class = {}
@@ -553,7 +482,7 @@ def main():
         #pi = player_info.copy()
         pi = {}
         pi['level'] = 1
-        abilities = generate_ability_scores(score_gen_method)
+        abilities = cli.generate_ability_scores(score_gen_method)
         available_race_and_classes = get_available_race_and_classes(abilities,desired_race,desired_class)
         
         if not available_race_and_classes:
