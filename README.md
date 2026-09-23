@@ -42,6 +42,10 @@ Follow the interactive prompts.
 
 ## TODO
 
+### Flow Structure
+- [ ] Rework action order to first generate stats, then pick race and the offer only the classes that the rolled stats meet the requirements for.
+- [ ] 
+
 ### Ancestry
 - [ ] Add ancestry level limits by class.
 - [ ] Implement special ancestry abilities (e.g. dwarf detect depth
