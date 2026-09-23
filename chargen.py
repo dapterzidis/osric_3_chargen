@@ -6,7 +6,7 @@ Created on Feb 6, 2026
 import random
 import re
 
-debug_level = 0
+debug_level = 2
 
 ability_list = {"STR":0, "DEX":0, "CON":0, "INT":0, "WIS":0, "CHA":0}
 
@@ -430,6 +430,30 @@ def generate_ability_scores(method):
                 die_list.append(die)
             char_abilities[ability] = sum(die_list)
         return char_abilities
+    elif method == 2:
+        rolls=[]
+        for _ in range(6):
+            roll = 0
+            for _ in range(3):
+                roll += random.randint(1,6)
+            rolls.append(roll)
+
+        for ability in char_abilities:
+            print(rolls)
+            print("Assign rolls to ability:")
+            while True:
+                selected_score = input(f"{ability}: >")
+                if is_integer(selected_score):
+                    selected_score = int(selected_score)
+                    if selected_score in rolls:
+                        char_abilities[ability] = selected_score
+                        rolls.remove(selected_score)
+                        break
+                    else:
+                        print("*** INVALID VALUE, enter a value from the available rolls")
+                        print(rolls)
+        return char_abilities
+
     elif method == 3:
         for ability in ability_list:
             die_list=[]
