@@ -465,6 +465,33 @@ def generate_ability_scores(method):
             die_list.remove(min_val)
             char_abilities[ability] = sum(die_list)
         return char_abilities
+
+    elif method ==  4:
+        rolls=[]
+        for _ in range(6):
+            die_list = []
+            for _ in range(4):
+                die = random.randint(1,6)
+                die_list.append(die)
+            die_list.remove(min(die_list))
+            rolls.append(sum(die_list))
+
+        for ability in char_abilities:
+            print(rolls)
+            print("Assign rolls to ability:")
+            while True:
+                selected_score = input(f"{ability}: >")
+                if is_integer(selected_score):
+                    selected_score = int(selected_score)
+                    if selected_score in rolls:
+                        char_abilities[ability] = selected_score
+                        rolls.remove(selected_score)
+                        break
+                    else:
+                        print("*** INVALID VALUE, enter a value from the available rolls")
+                        print(rolls)
+        return char_abilities
+
     else:
         raise Exception("Not yet implemented")
         
