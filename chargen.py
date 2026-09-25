@@ -45,7 +45,7 @@ def assign_ability_scores(rolls_in_order):
     for ability in char_abilities:
         char_abilities[ability] = rolls_in_order
     return char_abilities
-        
+
 def get_available_race_and_classes(abilities,desired_race,desired_class):
     available_race_and_class = {}
     for race,race_val in data.race_list.items():

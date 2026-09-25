@@ -40,6 +40,15 @@ python chargen.py
 
 Follow the interactive prompts.
 
+## Running tests
+
+```bash
+python -m venv .venv
+source .venv/Scripts/activate      # Linux: source .venv/bin/activate
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
 ## TODO
 
 ### Flow Structure
